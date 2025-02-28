@@ -1,0 +1,21 @@
+version: "3.8"
+
+services:
+  web:
+    build: .
+    command: python manage.py runserver 0.0.0.0:8000
+    ports:
+      - "8000:8000"
+    volumes:
+      - .:/app
+    depends_on:
+      - db
+
+  db:
+    image: postgres:17
+    environment:
+      POSTGRES_DB: acervo_cobalto
+      POSTGRES_USER: matadm
+      POSTGRES_PASSWORD: q13sHH@1#
+    ports:
+      - "5432:5432"
