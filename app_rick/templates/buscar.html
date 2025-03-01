@@ -109,8 +109,8 @@
         <select name="species">
             <option value="">Todas as espécies</option>
             <option value="Human" {% if request.GET.species == "Human" %}selected{% endif %}>Human</option>
+            <option value="Humanoid" {% if request.GET.species == "Humanoid" %}selected{% endif %}>Humanoid</option>
             <option value="Alien" {% if request.GET.species == "Alien" %}selected{% endif %}>Alien</option>
-            <!-- Outras opções podem ser adicionadas conforme os dados disponíveis -->
         </select>
         <select name="status">
             <option value="">Todos os status</option>
