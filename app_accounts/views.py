@@ -10,15 +10,15 @@ from app_rick.models import Favorito
 
 def cadastroView(request):
     if request.method == 'POST':
-        form = CustomUserCreationForm(request.POST)
-        if form.is_valid():
+        form = CustomUserCreationForm(request.POST) # Cria um form com os dados do POST
+        if form.is_valid(): # Salva o user e loga automaticamente
             user = form.save()
-            login(request, user)  # Loga automaticamente após o cadastro
+            login(request, user)
             return redirect('perfil')  # Redireciona para a página de perfil
     else:
-        form = CustomUserCreationForm()
+        form = CustomUserCreationForm() # Formulário vazio
 
-    return render(request, 'cadastro.html', {'form': form})
+    return render(request, 'cadastro.html', {'form': form}) # Renderização do template
 
 
 def loginView(request):
@@ -33,7 +33,7 @@ def loginView(request):
     return render(request, 'login.html', {'form': form})
 
 def perfilView(request):
-    favoritos = Favorito.objects.filter(usuario=request.user)
+    favoritos = Favorito.objects.filter(usuario=request.user) # Obtém favoritos do model Favorito do app_rick
     return render(request, 'perfil.html', {'user': request.user, 'favoritos': favoritos})
 
 def editarView(request):
@@ -63,7 +63,7 @@ def alterarSenhaView(request):
         form = ChangePasswordForm(request.user, request.POST)
         if form.is_valid():
             user = form.save()
-            update_session_auth_hash(request, user)
+            update_session_auth_hash(request, user) # Atualiza a sessão do user pra forçar o logout
             messages.success(request, "Senha alterada com sucesso!")
             return redirect('perfil')
         else:

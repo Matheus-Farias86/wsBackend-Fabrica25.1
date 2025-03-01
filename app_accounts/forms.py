@@ -2,14 +2,14 @@ from django import forms
 from django.contrib.auth.models import User
 from django.contrib.auth.forms import PasswordChangeForm, UserCreationForm
 
-class CustomUserCreationForm(UserCreationForm):
-    email = forms.EmailField(required=True, label='Email')
+class CustomUserCreationForm(UserCreationForm): # Usamos o UserCreationForm do Django como base e adicionamos o campo email
+    email = forms.EmailField(required=True, label='Email') # Adiciona o campo email como obrigatório
 
     class Meta:
-        model = User
-        fields = ['username', 'email', 'password1', 'password2']
+        model = User # Utilizamos o model User do próprio Django que vem com autenticação
+        fields = ['username', 'email', 'password1', 'password2'] # Os campos que serão exibidos no formulário
 
-    def clean_email(self):
+    def clean_email(self): # Verifica se o email está em uso
         email = self.cleaned_data.get('email')
         if User.objects.filter(email=email).exists():
             raise forms.ValidationError("Este email já está em uso.")
@@ -31,7 +31,7 @@ class EditProfileForm(forms.ModelForm):
             raise forms.ValidationError("Este email já está em uso.")
         return email
 
-class ChangePasswordForm(PasswordChangeForm):
+class ChangePasswordForm(PasswordChangeForm): # Utilizamos o PasswordChangeForm do Django para facilitar a alteração de senha
     old_password = forms.CharField(label="Senha Atual", widget=forms.PasswordInput)
     new_password1 = forms.CharField(label="Nova Senha", widget=forms.PasswordInput)
     new_password2 = forms.CharField(label="Confirme a Nova Senha", widget=forms.PasswordInput)

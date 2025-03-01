@@ -77,7 +77,7 @@ WSGI_APPLICATION = 'projeto_cobalto.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/5.1/ref/settings/#databases
 
-DATABASES = {
+DATABASES = { # Banco de dados modificado para PostgreSQL
     'default': {
         'ENGINE': 'django.db.backends.postgresql',
         'NAME': 'acervo_cobalto',
@@ -130,7 +130,7 @@ STATIC_URL = 'static/'
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
-REST_FRAMEWORK = {
+REST_FRAMEWORK = { # Configuração do rest_framework
     'DEFAULT_AUTHENTICATION_CLASSES': [
         'rest_framework.authentication.TokenAuthentication',
     ],

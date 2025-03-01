@@ -9,15 +9,15 @@ from rest_framework.permissions import AllowAny
 
 class UserViewSet(viewsets.ModelViewSet):
     queryset = User.objects.all()
-    serializer_class = UserSerializer
+    serializer_class = UserSerializer # Define serializer a ser utilizado
     permission_classes = [AllowAny]
 
     @action(detail=False, methods=['post'])
     def cadastroViewSet(self, request):
         serializer = UserSerializer(data=request.data)
         if serializer.is_valid():
-            user = serializer.save()
-            token = Token.objects.create(user=user)
+            user = serializer.save()  # Cria user no banco
+            token = Token.objects.create(user=user) # Criando token para user
             return Response({
                 'user': serializer.data,
                 'token': token.key
@@ -26,11 +26,11 @@ class UserViewSet(viewsets.ModelViewSet):
 
     @action(detail=False, methods=['post'])
     def loginViewSet(self, request):
-        username = request.data.get('username')
+        username = request.data.get('username') # Obtendo username e password
         password = request.data.get('password')
         user = authenticate(username=username, password=password)
         if user:
-            token, created = Token.objects.get_or_create(user=user)
+            token, created = Token.objects.get_or_create(user=user) # recuperando/criando token do user
             return Response({
                 'token': token.key
             })
@@ -59,5 +59,5 @@ class UserViewSet(viewsets.ModelViewSet):
 
     @action(detail=False, methods=['post'])
     def logoutViewSet(self, request):
-        request.user.auth_token.delete()
-        return Response({'detail': 'Logout realizado com sucesso.'})
+        request.user.auth_token.delete() # Deleta o token de autenticação do usuário
+        return Response({'detail': 'Logout realizado com sucesso.'}) # Retorna confirmação de logout
