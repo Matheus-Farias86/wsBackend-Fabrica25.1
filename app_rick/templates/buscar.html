@@ -131,6 +131,7 @@
             <div class="info">
                 <p>Status: {{ personagem.status }}</p>
                 <p>Espécie: {{ personagem.species }}</p>
+                <p>Origem: {{ personagem.origin.name }}</p>
             </div>
             <a href="{% url 'addfavoritoView' personagem.id personagem.name personagem.image %}">⭐ Favoritar</a>
         </li>
