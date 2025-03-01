@@ -48,6 +48,32 @@ pip install -r requirements.txt
 
 Isso vai instalar todas as bibliotecas listadas no arquivo `requirements.txt`.
 
+## Como Iniciar o Docker Compose:
+
+Para rodar o projeto com o Docker Compose, siga os seguintes passos:
+
+### 1. Pré-requisitos
+
+- Certifique-se de que o [Docker](https://www.docker.com/get-started) e o [Docker Compose](https://docs.docker.com/compose/install/) estão instalados na sua máquina.
+
+### 2. Iniciar o Docker Compose
+
+- No diretório onde o docker-compose.yml está localizado, execute o seguinte comando:
+
+```bash
+docker-compose up
+```
+
+Esse comando vai:
+
+- Baixar as imagens necessárias.
+- Criar os containers.
+- Iniciar os serviços definidos no arquivo docker-compose.yml.
+
+### 3. Acessar o site
+
+No seu navegador acesse o site pelo http://localhost:8000/
+
 ## API utilizada:
 
 RickandMorty API: https://rickandmortyapi.com/
