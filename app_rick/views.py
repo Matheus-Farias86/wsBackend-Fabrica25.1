@@ -1,13 +1,12 @@
 import requests
 from django.shortcuts import render, redirect
 from django.contrib.auth.decorators import login_required
-from .services import buscar_personagem
 from .models import Favorito
 
 def buscarView(request):
-    query = request.GET.get('nome', '')  # Obtém o nome do personagem
-    species = request.GET.get('species', '')  # Obtém a espécie
-    status = request.GET.get('status', '')  # Obtém o status
+    query = request.GET.get('nome', '')
+    species = request.GET.get('species', '')
+    status = request.GET.get('status', '')
 
     url = "https://rickandmortyapi.com/api/character/"
     params = {}

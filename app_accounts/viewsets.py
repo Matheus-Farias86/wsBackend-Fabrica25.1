@@ -10,7 +10,7 @@ from rest_framework.permissions import AllowAny
 class UserViewSet(viewsets.ModelViewSet):
     queryset = User.objects.all()
     serializer_class = UserSerializer
-    permission_classes = [AllowAny] # Alterado para permitir o acesso sem autenticação
+    permission_classes = [AllowAny]
 
     @action(detail=False, methods=['post'])
     def cadastroViewSet(self, request):
