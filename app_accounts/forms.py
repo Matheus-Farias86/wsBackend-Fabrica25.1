@@ -5,7 +5,7 @@ from django.contrib.auth.forms import PasswordChangeForm
 class EditProfileForm(forms.ModelForm):
     class Meta:
         model = User
-        fields = ['username', 'email']
+        fields = ['username']
 
     def clean_username(self):
         username = self.cleaned_data['username']

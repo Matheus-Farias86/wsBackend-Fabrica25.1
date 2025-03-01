@@ -2,7 +2,6 @@
 <h1>Perfil de {{ user.username }}</h1>
 <ul>
     <li><strong>Nome de Usuário:</strong> {{ user.username }}</li>
-    <li><strong>Email:</strong> {{ user.email }}</li>
 </ul>
 
 <h2>Ações</h2>
@@ -10,5 +9,15 @@
     <li><a href="{% url 'edit_perfil' %}">Editar Perfil</a></li>
     <li><a href="{% url 'deletar_account' %}">Excluir Conta</a></li>
     <li><a href="{% url 'logout' %}">Sair</a></li>
+</ul>
+<h2>Meus Favoritos</h2>
+<ul>
+    {% for favorito in favoritos %}
+    <li>
+        <img src="{{ favorito.imagem }}" width="100">
+        <strong>{{ favorito.nome }}</strong>
+        <a href="{% url 'delfavoritoView' favorito.personagem_id %}">❌ Remover</a>
+    </li>
+    {% endfor %}
 </ul>
 {% endblock %}

@@ -1,0 +1,19 @@
+{% block content %}
+<h1>Buscar Personagem</h1>
+<form method="GET">
+    <input type="text" name="nome" placeholder="Digite o nome" value="{{ query }}">
+    <button type="submit">Buscar</button>
+</form>
+
+{% if personagens %}
+<ul>
+    {% for personagem in personagens %}
+    <li>
+        <img src="{{ personagem.image }}" width="100">
+        <strong>{{ personagem.name }}</strong>
+        <a href="{% url 'addfavoritoView' personagem.id personagem.name personagem.image %}">⭐ Favoritar</a>
+    </li>
+    {% endfor %}
+</ul>
+{% endif %}
+{% endblock %}

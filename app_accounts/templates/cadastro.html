@@ -7,15 +7,24 @@
         <input type="text" name="username" required />
     </div>
     <div>
-        <label for="password">Senha:</label>
-        <input type="password" name="password" required />
+        <label for="password1">Senha:</label>
+        <input type="password" name="password1" required />
     </div>
     <div>
-        <label for="confirm_password">Confirmar Senha:</label>
-        <input type="password" name="confirm_password" required />
+        <label for="password2">Confirmar Senha:</label>
+        <input type="password" name="password2" required />
     </div>
     <button type="submit">Cadastrar</button>
 </form>
 
 <p>Já tem uma conta? <a href="{% url 'login' %}">Login</a></p>
+{% if form.errors %}
+<ul>
+    {% for field in form %}
+    {% for error in field.errors %}
+    <li>{{ error }}</li>
+    {% endfor %}
+    {% endfor %}
+</ul>
+{% endif %}
 {% endblock %}

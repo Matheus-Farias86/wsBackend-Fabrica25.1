@@ -40,7 +40,7 @@ INSTALLED_APPS = [
     'rest_framework',
     'rest_framework.authtoken',
     'app_accounts',
-    'app_movies',
+    'app_rick',
 ]
 
 MIDDLEWARE = [

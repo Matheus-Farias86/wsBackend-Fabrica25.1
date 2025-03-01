@@ -5,6 +5,8 @@ from django.contrib.auth import update_session_auth_hash
 from django.contrib import messages
 from django.contrib.auth.decorators import login_required
 from .forms import EditProfileForm, ChangePasswordForm
+from app_rick.models import Favorito
+
 
 def cadastroView(request):
     if request.method == 'POST':
@@ -12,9 +14,12 @@ def cadastroView(request):
         if form.is_valid():
             form.save()
             return redirect('login')
+        else:
+            print(form.errors)  # Exibe os erros para depuração
     else:
         form = UserCreationForm()
     return render(request, 'cadastro.html', {'form': form})
+
 
 def loginView(request):
     if request.method == 'POST':
@@ -28,7 +33,8 @@ def loginView(request):
     return render(request, 'login.html', {'form': form})
 
 def perfilView(request):
-    return render(request, 'perfil.html', {'user': request.user})
+    favoritos = Favorito.objects.filter(usuario=request.user)
+    return render(request, 'perfil.html', {'user': request.user, 'favoritos': favoritos})
 
 def editarView(request):
     if request.method == 'POST':
