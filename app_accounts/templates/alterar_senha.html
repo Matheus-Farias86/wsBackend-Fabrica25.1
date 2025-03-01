@@ -1,0 +1,17 @@
+{% block content %}
+<h2>Alterar Senha</h2>
+
+{% if messages %}
+{% for message in messages %}
+<p>{{ message }}</p>
+{% endfor %}
+{% endif %}
+
+<form method="POST">
+    {% csrf_token %}
+    {{ form.as_p }}
+    <button type="submit">Alterar Senha</button>
+</form>
+
+<a href="{% url 'edit_perfil' %}">Voltar</a>
+{% endblock %}
