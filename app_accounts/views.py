@@ -32,10 +32,12 @@ def loginView(request):
         form = AuthenticationForm()
     return render(request, 'login.html', {'form': form})
 
+@login_required
 def perfilView(request):
     favoritos = Favorito.objects.filter(usuario=request.user) # Obtém favoritos do model Favorito do app_rick
     return render(request, 'perfil.html', {'user': request.user, 'favoritos': favoritos})
 
+@login_required
 def editarView(request):
     if request.method == 'POST':
         form = EditProfileForm(request.POST, instance=request.user)
@@ -48,11 +50,13 @@ def editarView(request):
 
     return render(request, 'edit_perfil.html', {'form': form})
 
+@login_required
 def deletarView(request):
     user = request.user
     user.delete()
     return redirect('cadastro')
 
+@login_required
 def logoutView(request):
     logout(request)
     return redirect('login')
