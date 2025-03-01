@@ -15,18 +15,30 @@
         margin-bottom: 20px;
     }
 
+    /* Formulário com filtros */
     form {
         display: flex;
+        flex-wrap: wrap;
         justify-content: center;
+        gap: 10px;
         margin-bottom: 20px;
     }
 
-    form input[type="text"] {
+    form input[type="text"],
+    form select {
         padding: 10px;
         border: 1px solid #ccc;
         border-radius: 4px;
-        width: 60%;
-        margin-right: 10px;
+    }
+
+    form input[type="text"] {
+        flex: 1 1 40%;
+        min-width: 200px;
+    }
+
+    form select {
+        flex: 1 1 20%;
+        min-width: 150px;
     }
 
     form button {
@@ -42,6 +54,7 @@
         background-color: #0056b3;
     }
 
+    /* Lista de personagens em grid */
     .personagens-list {
         list-style: none;
         padding: 0;
@@ -70,6 +83,12 @@
         font-size: 1.1em;
     }
 
+    .info {
+        font-size: 0.9em;
+        color: #555;
+        margin-top: 5px;
+    }
+
     .personagens-list li a {
         display: inline-block;
         margin-top: 8px;
@@ -87,6 +106,18 @@
     <h1>Buscar Personagem</h1>
     <form method="GET">
         <input type="text" name="nome" placeholder="Digite o nome" value="{{ query }}">
+        <select name="species">
+            <option value="">Todas as espécies</option>
+            <option value="Human" {% if request.GET.species == "Human" %}selected{% endif %}>Human</option>
+            <option value="Alien" {% if request.GET.species == "Alien" %}selected{% endif %}>Alien</option>
+            <!-- Outras opções podem ser adicionadas conforme os dados disponíveis -->
+        </select>
+        <select name="status">
+            <option value="">Todos os status</option>
+            <option value="Alive" {% if request.GET.status == "Alive" %}selected{% endif %}>Alive</option>
+            <option value="Dead" {% if request.GET.status == "Dead" %}selected{% endif %}>Dead</option>
+            <option value="unknown" {% if request.GET.status == "unknown" %}selected{% endif %}>Unknown</option>
+        </select>
         <button type="submit">Buscar</button>
     </form>
 
@@ -96,6 +127,10 @@
         <li>
             <img src="{{ personagem.image }}" alt="{{ personagem.name }}">
             <strong>{{ personagem.name }}</strong>
+            <div class="info">
+                <p>Status: {{ personagem.status }}</p>
+                <p>Espécie: {{ personagem.species }}</p>
+            </div>
             <a href="{% url 'addfavoritoView' personagem.id personagem.name personagem.image %}">⭐ Favoritar</a>
         </li>
         {% endfor %}

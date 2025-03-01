@@ -1,15 +1,33 @@
+import requests
 from django.shortcuts import render, redirect
 from django.contrib.auth.decorators import login_required
 from .services import buscar_personagem
 from .models import Favorito
 
 def buscarView(request):
-    personagens = []
-    query = request.GET.get("nome")
+    query = request.GET.get('nome', '')  # Obtém o nome do personagem
+    species = request.GET.get('species', '')  # Obtém a espécie
+    status = request.GET.get('status', '')  # Obtém o status
+
+    url = "https://rickandmortyapi.com/api/character/"
+    params = {}
 
     if query:
-        personagens = buscar_personagem(query)
-    return render(request, "buscar.html", {"personagens": personagens, "query": query})
+        params["name"] = query
+    if species:
+        params["species"] = species
+    if status:
+        params["status"] = status
+
+    response = requests.get(url, params=params)
+    personagens = response.json().get('results', []) if response.status_code == 200 else []
+
+    return render(request, 'buscar.html', {
+        'personagens': personagens,
+        'query': query,
+        'selected_species': species,
+        'selected_status': status
+    })
 
 @login_required
 def addfavoritoView(request, personagem_id, nome, imagem):
