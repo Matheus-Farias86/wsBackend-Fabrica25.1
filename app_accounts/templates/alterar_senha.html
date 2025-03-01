@@ -1,17 +1,92 @@
 {% block content %}
-<h2>Alterar Senha</h2>
+<style>
+    .container {
+        max-width: 800px;
+        margin: 40px auto;
+        padding: 20px;
+        background-color: #282828;
+        box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+        border-radius: 8px;
+        color: #fff;
+    }
 
-{% if messages %}
-{% for message in messages %}
-<p>{{ message }}</p>
-{% endfor %}
-{% endif %}
+    h2 {
+        text-align: center;
+        color: #A6E22E;
+        margin-bottom: 20px;
+    }
 
-<form method="POST">
-    {% csrf_token %}
-    {{ form.as_p }}
-    <button type="submit">Alterar Senha</button>
-</form>
+    form {
+        display: flex;
+        flex-direction: column;
+        gap: 15px;
+    }
 
-<a href="{% url 'edit_perfil' %}">Voltar</a>
+    form input,
+    form select {
+        padding: 10px;
+        border: 1px solid #ccc;
+        border-radius: 4px;
+    }
+
+    button {
+        padding: 10px 15px;
+        background-color: #663399;
+        border: none;
+        border-radius: 4px;
+        color: #fff;
+        cursor: pointer;
+        margin-top: 15px;
+    }
+
+    button:hover {
+        background-color: #542e93;
+    }
+
+    .links {
+        text-align: center;
+        margin-top: 20px;
+    }
+
+    .links a {
+        color: #A6E22E;
+        text-decoration: none;
+        margin: 0 10px;
+    }
+
+    .links a:hover {
+        color: #ffc107;
+    }
+
+    .messages {
+        background-color: #f8d7da;
+        color: #721c24;
+        padding: 10px;
+        border-radius: 5px;
+        margin-bottom: 20px;
+        text-align: center;
+    }
+</style>
+
+<div class="container">
+    <h2>Alterar Senha</h2>
+
+    {% if messages %}
+    <div class="messages">
+        {% for message in messages %}
+        <p>{{ message }}</p>
+        {% endfor %}
+    </div>
+    {% endif %}
+
+    <form method="POST">
+        {% csrf_token %}
+        {{ form.as_p }}
+        <button type="submit">Alterar Senha</button>
+    </form>
+
+    <div class="links">
+        <a href="{% url 'edit_perfil' %}">Voltar</a>
+    </div>
+</div>
 {% endblock %}

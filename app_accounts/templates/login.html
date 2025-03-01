@@ -1,17 +1,111 @@
 {% block content %}
-<h1>Login</h1>
-<form method="POST" action="{% url 'login' %}">
-    {% csrf_token %}
-    <div>
-        <label for="username">Nome de Usuário:</label>
-        <input type="text" name="username" required />
-    </div>
-    <div>
-        <label for="password">Senha:</label>
-        <input type="password" name="password" required />
-    </div>
-    <button type="submit">Entrar</button>
-</form>
+<div class="login-container">
+    <h1>Login</h1>
+    <form method="POST" action="{% url 'login' %}" class="login-form">
+        {% csrf_token %}
+        <div class="input-group">
+            <label for="username">Nome de Usuário:</label>
+            <input type="text" name="username" required />
+        </div>
+        <div class="input-group">
+            <label for="password">Senha:</label>
+            <input type="password" name="password" required />
+        </div>
+        <button type="submit" class="btn">Entrar</button>
+    </form>
 
-<p>Ainda não tem uma conta? <a href="{% url 'cadastro' %}">Cadastre-se</a></p>
+    <p class="register-link">Ainda não tem uma conta? <a href="{% url 'cadastro' %}">Cadastre-se</a></p>
+</div>
+
+<style>
+    @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap');
+
+    body {
+        font-family: 'Poppins', sans-serif;
+        background: #1c1c1c;
+        color: #fff;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        height: 100vh;
+        margin: 0;
+    }
+
+    .login-container {
+        background: #282828;
+        padding: 40px;
+        border-radius: 12px;
+        box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
+        text-align: center;
+        width: 350px;
+    }
+
+    h1 {
+        color: #A6E22E;
+        font-weight: 600;
+        margin-bottom: 20px;
+    }
+
+    .login-form .input-group {
+        margin-bottom: 15px;
+        text-align: left;
+    }
+
+    .input-group label {
+        display: block;
+        font-weight: 400;
+        margin-bottom: 5px;
+        color: #ccc;
+    }
+
+    .input-group input {
+        width: 100%;
+        padding: 10px;
+        border: 1px solid #666;
+        border-radius: 6px;
+        background: #333;
+        color: #fff;
+        font-size: 14px;
+        outline: none;
+        transition: border 0.3s ease;
+    }
+
+    .input-group input:focus {
+        border-color: #A6E22E;
+    }
+
+    .btn {
+        background-color: #663399;
+        color: white;
+        border: none;
+        padding: 12px;
+        width: 100%;
+        border-radius: 6px;
+        cursor: pointer;
+        font-size: 14px;
+        font-weight: 600;
+        transition: background 0.3s ease;
+    }
+
+    .btn:hover {
+        background-color: #5a2d89;
+    }
+
+    .register-link {
+        margin-top: 15px;
+        font-size: 14px;
+        color: #ccc;
+    }
+
+    .register-link a {
+        color: #A6E22E;
+        text-decoration: none;
+        font-weight: 500;
+    }
+
+    .register-link a:hover {
+        text-decoration: underline;
+    }
+</style>
+
 {% endblock %}

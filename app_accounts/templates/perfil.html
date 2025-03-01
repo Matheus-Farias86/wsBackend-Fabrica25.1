@@ -1,23 +1,138 @@
 {% block content %}
 <h1>Perfil de {{ user.username }}</h1>
-<ul>
-    <li><strong>Nome de Usuário:</strong> {{ user.username }}</li>
-</ul>
+
+<!-- Exibindo o nome de usuário e e-mail -->
+<p><strong>Nome de Usuário:</strong> {{ user.username }}</p>
+<p><strong>Email:</strong> {{ user.email }}</p>
+
+<h2>Meus Favoritos</h2>
+
+<div class="favoritos-container">
+    {% for favorito in favoritos %}
+    <div class="card">
+        <img src="{{ favorito.imagem }}" alt="{{ favorito.nome }}">
+        <div class="card-info">
+            <h3>{{ favorito.nome }}</h3>
+            <a href="{% url 'delfavoritoView' favorito.personagem_id %}" class="botao-delete">❌ Remover</a>
+        </div>
+    </div>
+    {% endfor %}
+</div>
 
 <h2>Ações</h2>
-<ul>
-    <li><a href="{% url 'edit_perfil' %}">Editar Perfil</a></li>
-    <li><a href="{% url 'deletar_account' %}">Excluir Conta</a></li>
-    <li><a href="{% url 'logout' %}">Sair</a></li>
+<ul class="acoes">
+    <li><a href="{% url 'edit_perfil' %}" class="botao">✏️ Editar Perfil</a></li>
+    <li><a href="{% url 'deletar_account' %}" class="botao-danger">🗑️ Excluir Conta</a></li>
+    <li><a href="{% url 'logout' %}" class="botao">🚪 Sair</a></li>
 </ul>
-<h2>Meus Favoritos</h2>
-<ul>
-    {% for favorito in favoritos %}
-    <li>
-        <img src="{{ favorito.imagem }}" width="100">
-        <strong>{{ favorito.nome }}</strong>
-        <a href="{% url 'delfavoritoView' favorito.personagem_id %}">❌ Remover</a>
-    </li>
-    {% endfor %}
-</ul>
+
+<style>
+    body {
+        font-family: 'Poppins', sans-serif;
+        background: #1c1c1c;
+        color: #fff;
+    }
+
+    h1,
+    h2 {
+        color: #A6E22E;
+        font-weight: 600;
+    }
+
+    .favoritos-container {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 20px;
+        justify-content: center;
+    }
+
+    .card {
+        background: #282828;
+        border-radius: 10px;
+        box-shadow: 2px 2px 10px rgba(0, 0, 0, 0.1);
+        overflow: hidden;
+        width: 250px;
+        text-align: center;
+        transition: transform 0.3s ease;
+    }
+
+    .card:hover {
+        transform: translateY(-10px);
+    }
+
+    .card img {
+        width: 100%;
+        height: auto;
+    }
+
+    .card-info {
+        padding: 10px;
+    }
+
+    .card-info h3 {
+        color: #fff;
+    }
+
+    .card-info p {
+        font-size: 14px;
+        color: #ccc;
+    }
+
+    .botao,
+    .botao-danger,
+    .botao-delete {
+        display: inline-block;
+        padding: 8px 12px;
+        border-radius: 5px;
+        text-decoration: none;
+        color: white;
+        margin-top: 5px;
+        font-weight: 600;
+    }
+
+    .botao {
+        background: #663399;
+    }
+
+    .botao-danger {
+        background: #dc3545;
+    }
+
+    .botao-delete {
+        background: #333;
+    }
+
+    .botao:hover,
+    .botao-danger:hover,
+    .botao-delete:hover {
+        opacity: 0.8;
+    }
+
+    .acoes {
+        list-style-type: none;
+        padding: 0;
+        margin-top: 20px;
+    }
+
+    .acoes li {
+        margin: 10px 0;
+    }
+
+    .acoes .botao {
+        background: #007bff;
+    }
+
+    .acoes .botao-danger {
+        background: #dc3545;
+    }
+
+    .acoes .botao:hover {
+        background: #0056b3;
+    }
+
+    .acoes .botao-danger:hover {
+        background: #c82333;
+    }
+</style>
+
 {% endblock %}

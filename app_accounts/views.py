@@ -1,23 +1,23 @@
 from django.shortcuts import render, redirect
 from django.contrib.auth import login, logout
-from django.contrib.auth.forms import UserCreationForm, AuthenticationForm
+from django.contrib.auth.forms import AuthenticationForm
 from django.contrib.auth import update_session_auth_hash
 from django.contrib import messages
 from django.contrib.auth.decorators import login_required
-from .forms import EditProfileForm, ChangePasswordForm
+from .forms import EditProfileForm, ChangePasswordForm, CustomUserCreationForm
 from app_rick.models import Favorito
 
 
 def cadastroView(request):
     if request.method == 'POST':
-        form = UserCreationForm(request.POST)
+        form = CustomUserCreationForm(request.POST)
         if form.is_valid():
-            form.save()
-            return redirect('login')
-        else:
-            print(form.errors)  # Exibe os erros para depuração
+            user = form.save()
+            login(request, user)  # Loga automaticamente após o cadastro
+            return redirect('perfil')  # Redireciona para a página de perfil
     else:
-        form = UserCreationForm()
+        form = CustomUserCreationForm()
+
     return render(request, 'cadastro.html', {'form': form})
 
 
@@ -38,11 +38,15 @@ def perfilView(request):
 
 def editarView(request):
     if request.method == 'POST':
-        user = request.user
-        user.email = request.POST.get('email', user.email)
-        user.save()
-        return redirect('perfil')
-    return render(request, 'edit_perfil.html', {'user': request.user})
+        form = EditProfileForm(request.POST, instance=request.user)
+        if form.is_valid():
+            form.save()
+            messages.success(request, "Seu perfil foi atualizado com sucesso!")
+            return redirect('perfil')  # Redireciona para a página de perfil
+    else:
+        form = EditProfileForm(instance=request.user)
+
+    return render(request, 'edit_perfil.html', {'form': form})
 
 def deletarView(request):
     user = request.user
@@ -52,17 +56,6 @@ def deletarView(request):
 def logoutView(request):
     logout(request)
     return redirect('login')
-
-@login_required
-def editView(request):
-    if request.method == 'POST':
-        form = EditProfileForm(request.POST, instance=request.user)
-        if form.is_valid():
-            form.save()
-            return redirect('perfil')
-    else:
-        form = EditProfileForm(instance=request.user)
-    return render(request, 'edit_perfil.html', {'form': form})
 
 @login_required
 def alterarSenhaView(request):
