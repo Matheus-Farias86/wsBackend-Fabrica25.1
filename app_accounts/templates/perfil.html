@@ -1,13 +1,16 @@
 {% extends 'base.html' %}
+
 {% block title %}Perfil{% endblock %}
+
 {% block content %}
 <h1>Perfil de {{ user.username }}</h1>
 
-<!-- Exibindo o nome de usuário e e-mail -->
 <p><strong>Nome de Usuário:</strong> {{ user.username }}</p>
 <p><strong>Email:</strong> {{ user.email }}</p>
 
-<h2>Meus Favoritos</h2>
+<h2>Meus Favoritos
+    <a href="{% url 'buscar' %}" class="botao-adicionar">+</a>
+</h2>
 
 <div class="favoritos-container">
     {% for favorito in favoritos %}
@@ -134,6 +137,29 @@
 
     .acoes .botao-danger:hover {
         background: #c82333;
+    }
+
+    .botao-adicionar {
+        background-color: #4CAF50;
+        color: white;
+        padding: 5px 8px;
+        border-radius: 8px;
+        font-size: 1.2em;
+        font-weight: bold;
+        text-decoration: none;
+        display: inline-block;
+        text-align: center;
+        margin-left: 10px;
+        margin-bottom: 20px;
+        cursor: pointer;
+        width: 25px;
+        height: 25px;
+        line-height: 20px;
+        text-align: center;
+    }
+
+    .botao-adicionar:hover {
+        background-color: #45a049;
     }
 </style>
 
