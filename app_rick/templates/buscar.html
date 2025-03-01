@@ -1,19 +1,107 @@
 {% block content %}
-<h1>Buscar Personagem</h1>
-<form method="GET">
-    <input type="text" name="nome" placeholder="Digite o nome" value="{{ query }}">
-    <button type="submit">Buscar</button>
-</form>
+<style>
+    .container {
+        max-width: 800px;
+        margin: 40px auto;
+        padding: 20px;
+        background-color: #ffffff;
+        box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+        border-radius: 8px;
+    }
 
-{% if personagens %}
-<ul>
-    {% for personagem in personagens %}
-    <li>
-        <img src="{{ personagem.image }}" width="100">
-        <strong>{{ personagem.name }}</strong>
-        <a href="{% url 'addfavoritoView' personagem.id personagem.name personagem.image %}">⭐ Favoritar</a>
-    </li>
-    {% endfor %}
-</ul>
-{% endif %}
+    h1 {
+        text-align: center;
+        color: #333;
+        margin-bottom: 20px;
+    }
+
+    form {
+        display: flex;
+        justify-content: center;
+        margin-bottom: 20px;
+    }
+
+    form input[type="text"] {
+        padding: 10px;
+        border: 1px solid #ccc;
+        border-radius: 4px;
+        width: 60%;
+        margin-right: 10px;
+    }
+
+    form button {
+        padding: 10px 15px;
+        background-color: #007bff;
+        border: none;
+        border-radius: 4px;
+        color: #fff;
+        cursor: pointer;
+    }
+
+    form button:hover {
+        background-color: #0056b3;
+    }
+
+    .personagens-list {
+        list-style: none;
+        padding: 0;
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+        gap: 15px;
+    }
+
+    .personagens-list li {
+        border: 1px solid #ddd;
+        border-radius: 8px;
+        padding: 10px;
+        text-align: center;
+        background-color: #f9f9f9;
+    }
+
+    .personagens-list li img {
+        max-width: 100%;
+        border-radius: 4px;
+    }
+
+    .personagens-list li strong {
+        display: block;
+        margin-top: 10px;
+        color: #333;
+        font-size: 1.1em;
+    }
+
+    .personagens-list li a {
+        display: inline-block;
+        margin-top: 8px;
+        text-decoration: none;
+        color: #ffc107;
+        font-size: 1.2em;
+    }
+
+    .personagens-list li a:hover {
+        color: #e0a800;
+    }
+</style>
+
+<div class="container">
+    <h1>Buscar Personagem</h1>
+    <form method="GET">
+        <input type="text" name="nome" placeholder="Digite o nome" value="{{ query }}">
+        <button type="submit">Buscar</button>
+    </form>
+
+    {% if personagens %}
+    <ul class="personagens-list">
+        {% for personagem in personagens %}
+        <li>
+            <img src="{{ personagem.image }}" alt="{{ personagem.name }}">
+            <strong>{{ personagem.name }}</strong>
+            <a href="{% url 'addfavoritoView' personagem.id personagem.name personagem.image %}">⭐ Favoritar</a>
+        </li>
+        {% endfor %}
+    </ul>
+    {% else %}
+    <p style="text-align: center; color: #666;">Nenhum personagem encontrado.</p>
+    {% endif %}
+</div>
 {% endblock %}
