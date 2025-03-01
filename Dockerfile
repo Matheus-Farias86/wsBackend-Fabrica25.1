@@ -1,9 +1,12 @@
 FROM python:3.12.1-slim
 
-WORKDIR /app_accounts
+WORKDIR /app
 
-COPY . /app_accounts/
-COPY ./requirements.txt /app_accounts/requirements.txt
+COPY requirements.txt /app/
+
+RUN pip install --no-cache-dir -r requirements.txt
+
+COPY . /app/
 
 EXPOSE 8000
 

@@ -76,15 +76,16 @@ WSGI_APPLICATION = 'projeto_cobalto.wsgi.application'
 
 # Database
 # https://docs.djangoproject.com/en/5.1/ref/settings/#databases
+import os
 
-DATABASES = { # Banco de dados modificado para PostgreSQL
+DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql',
-        'NAME': 'acervo_cobalto',
-        'USER': 'matadm',
-        'PASSWORD': 'q13sHH@1#',
-        'HOST': 'localhost',
-        'PORT': '5432',
+        'NAME': os.getenv('DB_NAME', 'acervo_cobalto'),
+        'USER': os.getenv('DB_USER', 'matadm'),
+        'PASSWORD': os.getenv('DB_PASSWORD', 'q23LLmq'),
+        'HOST': os.getenv('DB_HOST', 'db'),
+        'PORT': os.getenv('DB_PORT', '5432'),
     }
 }
 
